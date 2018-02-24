@@ -1,5 +1,5 @@
 ---
-templateKey: 'product-page'
+templateKey: product-page
 path: /products
 title: Our Coffee
 image: /img/jumbotron.jpg
@@ -38,6 +38,8 @@ intro:
         space where you can hang out with fellow coffee lovers and learn about
         coffee making techniques. All of the artwork on display there is for
         sale. The full price you pay goes to the artist.
+    - image: /img/lucy-heath-176681.jpg
+      text: 'This is gonna be dope.  '
   heading: What we offer
   description: >
     Kaldi is the ultimate spot for coffee lovers who want to learn about their
@@ -99,3 +101,4 @@ pricing:
       plan: Custom
       price: '??'
 ---
+
