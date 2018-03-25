@@ -54,6 +54,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "standard-page"}
       - {label: "Page Type", name: "pageType", widget: "hidden", default: "standard"}
       - {label: "Path", name: "path", widget: "string"}
       - {label: "Title", name: "title", widget: "string"}
