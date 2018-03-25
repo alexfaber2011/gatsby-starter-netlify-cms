@@ -47,8 +47,9 @@ collections:
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
 
-  - name: "standard-page"
-    label: "Standard Page"
+  - name: "standard-pages"
+    label: "Standard Pages"
+    label_singular: "Standard Page"
     folder: "src/pages/standard-pages"
     create: true
     slug: "{{slug}}"
