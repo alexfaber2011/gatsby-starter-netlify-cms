@@ -1,5 +1,20 @@
 const path = require("path");
 
+function isPage(absolutePath, pageType) {
+  switch (pageType) {
+    case 'product':
+      return absolutePath.indexOf('/src/pages/product/') > -1;
+    case 'about':
+      return absolutePath.indexOf('/src/pages/about/') > -1;
+    case 'blog':
+      return absolutePath.indexOf('/src/pages/blog/') > -1;
+    case 'standard':
+      return absolutePath.indexOf('/src/pages/standard-pages') > -1;
+    default:
+      return false;
+  }
+}
+
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators;
 
@@ -11,56 +26,10 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       ) {
         edges {
           node {
-            excerpt(pruneLength: 400)
-            html
-            id
+            fileAbsolutePath
             frontmatter {
               templateKey
               path
-              date
-              title
-              image
-              heading
-              description
-              intro {
-                blurbs {
-                  image
-                  text
-                }
-                heading
-                description
-              }
-              main {
-                heading
-                description
-                image1 {
-                  alt
-                  image
-                }
-                image2 {
-                  alt
-                  image
-                }
-                image3 {
-                  alt
-                  image
-                }
-              }
-              testimonials {
-                author
-                quote
-              }
-              full_image
-              pricing {
-                heading
-                description
-                plans {
-                  description
-                  items
-                  plan
-                  price
-                }
-              }
             }
           }
         }
@@ -74,16 +43,29 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
 
     return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const pagePath = node.frontmatter.path;
-      createPage({
+
+      const absolutePath = node.fileAbsolutePath;
+
+      const createPageOptions = {
         path: pagePath,
         component: path.resolve(
-          `src/templates/${String(node.frontmatter.templateKey)}.js`
+          `src/templates/product-page.js`
         ),
         // additional data can be passed via context
         context: {
           path: pagePath
         }
-      });
+      }
+
+      if (isPage(absolutePath, 'product')) {
+        createPage(Object.assign(createPageOptions, {component: path.resolve(`src/templates/product-page.js`)}));
+      } else if (isPage(absolutePath, 'about')) {
+        createPage(Object.assign(createPageOptions, {component: path.resolve(`src/templates/about-page.js`)}));
+      } else if (isPage(absolutePath, 'blog')) {
+        createPage(Object.assign(createPageOptions, {component: path.resolve(`src/templates/blog-post.js`)}));
+      } else if (isPage(absolutePath, 'standard')) {
+        createPage(Object.assign(createPageOptions, {component: path.resolve(`src/templates/standard-page.js`)}));
+      }
     });
   });
 };
